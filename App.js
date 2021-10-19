@@ -1,45 +1,37 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Button,
-} from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import React, {useState} from 'react';
+import { Button, Linking, StyleSheet, Text, View } from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-const App = () => {
-  const [name, setName] = useState('Mash')
-  const [session, setSession] = useState({ number: 6, title: 'state' })
+export default function App() {
+  const [counter, setCounter] = useState(0)
+  const [time_click, setTimeClick] = useState(0)
   const [current, setCurrent] = useState(true)
 
-  const onClickHandler = () => {
-    setName('Programming with Mash')
-    setSession({ number: 7, title: 'Style' })
-    setCurrent(false)
+  const onclickHandler = () => {
+    setCounter(counter + 5)
+    setTimeClick(time_click + 1)
   }
-
   return (
     <View style={styles.body}>
-      <Text style={styles.text}>{name}</Text>
-      <Text style={styles.text}>This is session number {session.number} and about {session.title}</Text>
-      <Text style={styles.text}>{current ? 'current session' : 'next session'}</Text>
-      <Button title='Update State' onPress={onClickHandler}></Button>
+      <Text style={styles.text}>{counter}</Text>
+      <Button title='Add' onPress={onclickHandler}></Button>
+      <Text style={styles.text}>You clicked {time_click} times</Text>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: '#0000ff',
+    backgroundColor: '#ff00ff',
     alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
-    color: '#ffffff',
+    color: '#ffff',
     fontSize: 20,
     fontStyle: 'italic',
-    margin: 10,
-  },
+    margin:10,
+  }
 });
-
-export default App;
