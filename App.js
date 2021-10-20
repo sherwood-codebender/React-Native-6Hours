@@ -40,7 +40,22 @@ const App = () => {
         </View>
       </View>
 
+      <View style={styles.container3}>
+        <View style={styles.view6}>
+          <Text style={styles.text}>6</Text>
+        </View>
+        <View style={styles.view7}>
+          <Text style={styles.text}>7</Text>
+        </View>
+      </View>
 
+      {/* <View style={{backgroundColor: '#00ffff', marginTop: 20, alignItems: 'center'}}>
+        <Text style={styles.text}>1</Text>
+      </View>
+      <View style={{backgroundColor: '#00ffff', alignItems: 'center'}}>
+        <Text style={styles.text}>1</Text>
+        <Text style={styles.text}>1</Text>
+      </View> */}
     </View>
   );
 };
@@ -48,14 +63,18 @@ const App = () => {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
+    flexDirection: 'column',
+    backgroundColor: '#ffffff',
+    alignItems: 'stretch',
+    justifyContent: 'center',
   },
 
   container1: {
     flex: 1,
     flexDirection: 'row', 
     alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    marginTop:25,
+    justifyContent: 'center',
+    marginTop:28,
   },
   view1: {
     flex: 1,
@@ -77,10 +96,10 @@ const styles = StyleSheet.create({
   },
   
   container2: {
-    flex: 1,
+    flex: 2,
     flexDirection: 'column', 
     alignItems: 'stretch',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
   },
   view4: {
     flex: 1,
@@ -95,16 +114,31 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+  container3: {
+    flex: 6,
+    flexDirection: 'row', 
+    alignItems: 'stretch',
+    justifyContent: 'center',
+  },
+  view6: {
+    flex: 1,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  view7: {
+    flex:1,
+    backgroundColor: 'blue',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   text: {
     color: 'black',
     fontSize: 30,
     fontStyle: 'italic',
-    textTransform: 'uppercase',
+    margin: 10,
   },
-  button: {
-    width : 200,
-    height : 100,
-  }
 });
 
 export default App;
