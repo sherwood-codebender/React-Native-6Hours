@@ -3,119 +3,115 @@ import {
   StyleSheet,
   View,
   Text,
+  TextInputBase,
+  TextInput,
   Button,
-  ScrollViewBase,
-  ScrollView,
-  RefreshControl,
-  FlatList,
-  SectionList,
+  TouchableOpacity,
+  Pressable,
 } from 'react-native';
 
-const App = () => {
-  const [Items, setItems] = useState([
-    { name: 'Item 1'},
-    { name: 'Item 2'},
-    { name: 'Item 3'},
-    { name: 'Item 4'},
-    { name: 'Item 5'},
-    { name: 'Item 6'},
-    { name: 'Item 7'},
-    { name: 'Item 8'},
-  ]);
+class App extends React.Component {
   
-  const DATA = [
-    {
-      title: 'Title 1',
-      data: ['Item 1-1', 'Item 1-2', 'Item 1-3']
-    },
-    {
-      title: 'Title 2',
-      data: ['Item 2-1', 'Item 2-2', 'Item 2-3']
-    },
-    {
-      title: 'Title 3',
-      data: ['Item 3-1', 'Item 3-2', 'Item 3-3']
-    },
-    {
-      title: 'Title 4',
-      data: ['Item 4-1', 'Item 4-2', 'Item 4-3']
+  constructor(props){
+    super(props)
+    this.state = {
+      userInput: "",
+      submit: false,
     }
-  ]
-  const [Refreshing, setRefreshing] = useState(false) 
-  const onRefresh = () => {
-    setRefreshing(true);
-    setItems([...Items, {name: 'Item 69'}]);
-    setRefreshing(false);
+    this.handleChangeText = this.handleChangeText.bind(this);
+    this.onPressHandler = this.onPressHandler.bind(this);
   }
-  return ( 
-    <SectionList
-    keyExtractor={(item, index) => index.toString()}
-    sections = {DATA}
-    renderItem={({item}) => (
+
+  handleChangeText(e)  {
+    this.setState({
+      userInput: e
+    });
+  }
+
+  onPressHandler() {
+    this.setState({
+      submit: !this.state.submit,
+    })
+  }
+
+  render (){
+
+    return (
+    <View style={styles.body}>
+        <Text style={styles.text}>
+          Please write your name:
+        </Text>
+        <TextInput 
+          style={styles.input}
+          placeholder='Account'
+          value={this.state.userInput}
+          onChangeText={this.handleChangeText}
+        />
+
+        {/* <Button 
+          title={this.state.submit ? "Clear" : 'Submit' }
+          onPress = {this.onPressHandler}
+        /> */}
+
+        {/* <TouchableOpacity
+          style={styles.button}
+          onPress={this.onPressHandler}
+          activeOpacity={0.3}
+        >
+
+          <Text style={styles.text}> 
+            {this.state.submit ? "Clear" : 'Submit'}
+          </Text>
         
-          <Text style={styles.text}>{item}</Text>
+        </TouchableOpacity> */}
+
+        <Pressable
+          onPress={this.onPressHandler}
+          style={ ({pressed}) => [
+            {backgroundColor: pressed ? 'green' : "blue"}, 
+            styles.button ]
+          }
+          android_ripple={{color: 'red'}}
+        >
+          <Text style={styles.text}> 
+            {this.state.submit ? "Clear" : 'Submit'}
+          </Text>
+        </Pressable>
+
+
+        {
+          this.state.submit &&
+          <Text style={styles.text}>
+          Your name is: {this.state.userInput}
+          </Text>
         
-    )}
-    renderSectionHeader={({section}) => (
-      <View style={styles.item}>
-        <Text style={styles.text}>{section.title}</Text>
-      </View>
-    )}
-    ></SectionList>
+        }
 
+    </View>
+    )
+  }
+}
 
-
-
-    // <FlatList 
-    // keyExtractor={(item, index) => index.toString()}
-    // data={Items}
-    // renderItem={({item}) => (
-    //   <View style={styles.item}>
-    //     <Text style={styles.text}>{item.name}</Text>
-    //   </View>
-    // )}
-    
-    // refreshControl={
-    //   <RefreshControl refreshing = {Refreshing}
-    //   onRefresh={onRefresh}
-    //   colors={['#ff00ff']} />}
-    // />  
-
-    
-
-    //   <ScrollView
-    //   style={styles.body}
-    //   refreshControl={
-    //     <RefreshControl refreshing = {Refreshing}
-    //     onRefresh={onRefresh}
-    //     colors={['#ff00ff']} />
-    //   }
-    //   >
-    //   {
-    //     Items.map((i) => {
-    //       return (
-    //         <View style={styles.item} key={i.key}>
-    //           <Text style={styles.text}>{i.item}</Text>
-    //         </View>
-    //       )
-    //     })
-    //   }
-      
-    // </ScrollView>
-  );
-};
+// const App = () => {
+  
+//   return ( 
+//     <View style={styles.body}>
+//       <Text style={styles.text}>
+//         Please write your name:
+//       </Text>
+//       <TextInput 
+//         style={styles.input}
+//         placeholder='Account'
+//       />
+//     </View>
+//   )
+// };
 
 const styles = StyleSheet.create({
   body: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#0000ff',
-  },
-  item: {
-    backgroundColor: '#4ae1fa',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 10,
+    backgroundColor: 'white',
   },
 
   text: {
@@ -125,6 +121,23 @@ const styles = StyleSheet.create({
     margin: 10,
     textTransform: 'uppercase',
   },
+
+  input: {
+    width: 200,
+    borderWidth: 1,
+    borderColor: '#555',
+    borderRadius: 5,
+    textAlign: 'center',
+    fontSize: 20,
+    marginBottom: 10
+  },
+
+  button: {
+    
+    width: 150,
+    height: 50,
+    alignItems: "center"
+  }
 });
 
 export default App;
