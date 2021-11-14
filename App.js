@@ -8,6 +8,8 @@ import {
   Button,
   TouchableOpacity,
   Pressable,
+  Alert,
+  ToastAndroid,
 } from 'react-native';
 
 class App extends React.Component {
@@ -29,9 +31,12 @@ class App extends React.Component {
   }
 
   onPressHandler() {
-    this.setState({
+    this.state.userInput.length > 3 ?
+     this.setState({
       submit: !this.state.submit,
-    })
+    }) :
+    // Alert.alert("Waring", "More than 3 characters", [{text: 'OK'}])
+    ToastAndroid.showWithGravity("More than 3 characters", ToastAndroid.LONG, ToastAndroid.TOP)
   }
 
   render (){
@@ -47,23 +52,6 @@ class App extends React.Component {
           value={this.state.userInput}
           onChangeText={this.handleChangeText}
         />
-
-        {/* <Button 
-          title={this.state.submit ? "Clear" : 'Submit' }
-          onPress = {this.onPressHandler}
-        /> */}
-
-        {/* <TouchableOpacity
-          style={styles.button}
-          onPress={this.onPressHandler}
-          activeOpacity={0.3}
-        >
-
-          <Text style={styles.text}> 
-            {this.state.submit ? "Clear" : 'Submit'}
-          </Text>
-        
-        </TouchableOpacity> */}
 
         <Pressable
           onPress={this.onPressHandler}
